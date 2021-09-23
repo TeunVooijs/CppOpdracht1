@@ -1,3 +1,15 @@
+// Maker: Teun Vooijs
+// Studiejaar: 2021-2022
+// Studierichting: Informatica Studentnummer: 3405389
+// Opdracht ABC formule
+// Datum:
+// Compiler g++ 8.1.0
+
+// Er worden straks vragen gesteld over geboorte jaar maand en dag. 
+// Hierbij wordt ook de dag van de week van de geboortedag gevraagd.
+// Dan moet er een formule met de abc formule worden opgelost.
+// Is dit antwoord incorrect, dan wordt er een vraag over literatuur gevraagd.
+
 #include <iostream>
 #include <cmath>
 #include <ctime>
@@ -17,14 +29,24 @@ int main(){
 
     cout << "Geef alstublieft uw geboorte jaar: ";
     cin >> geb_jaar;
-    if ((peil_jaar-geb_jaar)>=100 || (peil_jaar-geb_jaar)<=10){
-        cout << "Sorry u bent niet geschikt voor een studie ivm met uw leeftijd\n";
+    if ((peil_jaar-geb_jaar)>=100 || (peil_jaar-geb_jaar)< 10){
+        cout << "Sorry u bent niet geschikt " 
+        "voor een studie ivm met uw leeftijd\n";
         return 1;
     }
+    leeftijd_jaar=peil_jaar-geb_jaar;
     
     cout << "Geef alstublieft uw geboorte maand: ";
     cin >> geb_maand;
 
+    if (leeftijd_jaar==10 && geb_maand>peil_maand){
+        cout << "Sorry je bent te jong voor een universitaire studie";
+        return 1;
+    }
+    if (leeftijd_jaar==100 && geb_maand<peil_maand){
+        cout << "Sorry u bent te oud voor een universitaire studie";
+        return 1;
+    }
     if (geb_maand>12 || geb_maand<=0){
         cout << "Dit is geen geldige geboorte maand";
         return 1;
@@ -32,6 +54,16 @@ int main(){
 
     cout << "Geef alstublieft uw geboorte dag: ";
     cin >> geb_dag;
+    
+    if (leeftijd_jaar==10 && geb_maand==peil_maand && geb_dag>peil_dag){
+        cout << "Sorry je bent te jong voor deze studie";
+        return 1;
+    }
+    if (leeftijd_jaar==100 && geb_maand==peil_maand && geb_dag<peil_dag){
+        cout << "Sorry u bent te oud voor deze studie";
+        return 1;
+    }
+
     if (geb_dag<=0){
         cout << "Dit is geen geldige geboorte dag";
     }
@@ -63,10 +95,13 @@ int main(){
     }
 
     if (geb_dag==peil_dag){
+        if (geb_maand==peil_maand){
+            cout << "Gefelicteerd met je verjaardag\n";
+        }
+        else{
         cout << "Gefeliciteerd met uw vermaanddag!\n";
     }
-
-    leeftijd_jaar=peil_jaar-geb_jaar;
+    }
     
     if (geb_maand>peil_maand){
         leeftijd_jaar-=1;
@@ -214,67 +249,91 @@ int main(){
     srand(time(0));
     
     
-    a=rand()%20+1, b=(rand()%40+(-20)), c=-(rand()%40+(-20));
+    a=rand()%1000000+1, b=(rand()%1000000+(-500000)), c=-(rand()%1000000+(-500000));
     /*  Het genereren van random nummers voor de a,b en c plaatsen in de ax^2+bx+c=0 formule
         Waarbij de a waarde boven de 1 is en de b en c waarde ook negatief en 0 kunnen zijn
     */
     cout << a << "x^2+" << b << "x+" << c << "=0" << endl;
-    /* Dit print de net gegenereerde formule met de xen erin */
+    /* Dit print de net gegenereerde formule met xen erin */
 
 
     d=  ((b*b)-(4*a*c));
     x1= (-b+sqrt(d))/(2*a);
     x2= (-b-sqrt(d))/(2*a);
     // ABC formule uitrekenen met + en -
-    // cout << x2 << endl << x1;
-    if (x1==x2){                    /* Hier wordt gekeken of de antwoorden hetzelfde zijn */
-        goed_antwoord+=1;
-        cout << x1;
+    if (d==0){
+        goed_antwoord=1;
     }
-    else{                           /* Als dat niet het geval is wordt er gekeken*/
-        if (x1 == double(x1)){
-            goed_antwoord+=1;
-            cout << x1 << endl;
-        }
-
-        if (x2== double(x2)){
-            goed_antwoord+=1;
-            cout << x2 << endl; 
-        }
+    if (d < 0){
+        goed_antwoord=0;
     }
+    if (d > 0){
+        goed_antwoord=2;
+    } 
     cout << "Hoeveel oplossingen geeft de bovenstaande formule voor x?(antwoord met 0,1,2): ";
     cin >> antwoord_persoon;
     
     if (antwoord_persoon==goed_antwoord){
-        cout << "Dit klopt\nJe mag een beta studie doen!\n";
+        if (leeftijd_jaar>=30){
+            cout << "Dit klopt\nU mag een beta studie doen!\n";
+        }
+        else{
+            cout << "Dit klopt\nJe mag een beta studie doen!\n";
+        }
         if (goed_antwoord==1){
-            cout << x1 << endl;
+            cout << "De oplossing is: " << x1 << endl;
         }
         else if (goed_antwoord==2){
-            cout << x1 << endl << x2 << endl;
-        }
+            cout << "De oplossingen zijn: " << x1 << " & " << x2 << endl;
+        }    
         return 1;
+    
     }
     else{
-        cout << "Dit is incorrect\n";
+        cout << "Dit is incorrect\n\n";
     }
     
+    char mc_antwoord,mc_antwoord_persoon;
+
+
+    cout << "Daarom nu een vraag over literatuur om te kijken of een alpha studie beter is.\n";
     if (leeftijd_jaar<30){
-        cout << "Daarom nu een vraag over literatuur om te kijken of een alpha studie beter is.\n\n";
-        cout << ""
-
+        cout << "Op wie wordt Romeo verliefd?\n"
+        "a. Sjaakie\n"
+        "b. Julia\n"
+        "c. Geraldina\n"
+        "d. Annemieke\n";
+        mc_antwoord='b';
     }
-
-
-
-
-
-
-
-
-
-
-
-
+    else {
+        cout << "Van wie is de uitspraak: ik denk dus ik ben?\n"
+        "a. Socrates\n"
+        "b. Plato\n"
+        "c. Descartes\n"
+        "d. Aristoteles\n";
+        mc_antwoord='c';
+    }
+    cin >> mc_antwoord_persoon;
+    if (mc_antwoord==mc_antwoord_persoon){
+        if (mc_antwoord=='b'){
+            cout << "Dit is goed! Je bent geschikt voor een alpha studie";
+        return 1;
+        }
+        else{
+            cout << "Dit is goed! U bent geschikt voor een alpha studie";
+        return 1;
+        }
+    }
+    else {
+        if (leeftijd_jaar<30){
+            cout << "Helaas je bent niet geschikt voor een universitaire studie";
+        return 1;
+        }
+        else{
+            cout << "Helaas U bent niet geschikt voor een universitaire studie";
+        return 1;
+        }
+        
+    }
 }
 
