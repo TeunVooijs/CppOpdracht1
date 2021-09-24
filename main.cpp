@@ -16,7 +16,7 @@
 using namespace std;
 
 int main(){
-    int geb_jaar, geb_maand, geb_dag;
+    int geb_jaar, geb_maand, geb_dag;                                       // Waardes 
     int peil_jaar=2021, peil_maand=9, peil_dag=19;
     int leeftijd_jaar, leeftijd_maand,leeftijd_maanden;
     int schrikkeljaren;
@@ -25,7 +25,9 @@ int main(){
     char dag_geboorte_persoon, controle_letter_persoon;
     char dag_geboorte, controle_letter;
 
-
+    // Eerst worden de geboorte data opgevraagd
+    // Bij het jaar wordt gekeken of dit niet jonger is dan 10 of ouder is dan 100
+    // Vervolgens wordt dit ook voor de maand en dag gecontrolleerd
 
     cout << "Geef alstublieft uw geboorte jaar: ";
     cin >> geb_jaar;
@@ -94,6 +96,8 @@ int main(){
         break;
     }
 
+    // Als de persoon jarig of maandig is wordt dat hier gestuurd
+
     if (geb_dag==peil_dag){
         if (geb_maand==peil_maand){
             cout << "Gefelicteerd met je verjaardag\n";
@@ -103,6 +107,9 @@ int main(){
     }
     }
     
+    // Omdat het niet helemaal uitkomt met hoe oud iemand is
+    // wordt dat hier goed gemaakt
+
     if (geb_maand>peil_maand){
         leeftijd_jaar-=1;
         leeftijd_maand=12-(peil_maand-geb_maand);
@@ -122,7 +129,11 @@ int main(){
 
     dagen_tussenjaren=((schrikkeljaren*366)+((geb_jaar-begin_jaar-schrikkeljaren)*365));
     
-    switch (geb_maand){                   // Hier wordt het aantal dagen in het geboorte jaar uitgerekend
+    // Hier wordt het aantal dagen in het geboorte jaar uitgerekend
+    // Er wordt gekeken naar de geboortemaand voor de dagen tot aan die maand
+    // daarna worden de overige dagen toegevoegd
+    
+    switch (geb_maand){                   
     case 1:
         dagen_geb_jaar=geb_dag;
         break;
@@ -160,13 +171,14 @@ int main(){
         dagen_geb_jaar=geb_dag+334;
         break;
     }    
-
-    if (geb_jaar%4==0 && geb_maand>=3){                 //Dit is voor het missen van 1 dag als het geboorte jaar een schrikkeljaar is
+    //Dit is voor het missen van 1 dag als het geboorte jaar een schrikkeljaar is
+    if (geb_jaar%4==0 && geb_maand>=3){                 
         dagen_geb_jaar+=1;
     }
     dagen_naar_geb=dagen_tussenjaren+dagen_geb_jaar-1;
-    
-    // cout << endl << dagen_naar_geb << endl;
+
+    // Door het totaal aantal dagen modules 7 te doen houdt je het aantal dagen over in de week van de geboorte
+    // dan wordt het overgebleven getal gelijk gesteld aan de dag van de geboorte    
     
     dagen_naar_geb=dagen_naar_geb%7;
 
@@ -199,6 +211,11 @@ int main(){
         break;
     }
 
+    // Nadat de computer heeft uitgerekend op welke dag iemand geboren is
+    // wordt het aan de persoon gevraagd en gecontroleerd
+    // Als de geboorte dag een dinsdag, donderdag, zaterdag of zondag is
+    // wordt er een tweede letter gevraagd om te kijken of de dag klopt
+
     if(leeftijd_jaar>=30){
     cout << "Op welke dag van de week bent u geboren: ";
     cin >> dag_geboorte_persoon;
@@ -220,11 +237,8 @@ int main(){
         }   
     }
 
-    
+    // Hier wordt de leeftijd in jaren en maanden weergegeven 
 
-
-    
-    
     leeftijd_maanden= (leeftijd_jaar*12)+leeftijd_maand;
     if (leeftijd_jaar>=30){
         cout << "U bent: " << leeftijd_jaar << " jaren en " << leeftijd_maand << " maanden oud.\n";
@@ -232,10 +246,9 @@ int main(){
     else{
         cout << "Je bent: " << leeftijd_jaar << " jaren en " << leeftijd_maand << " maanden oud.\n";
     }
-    cout << "Dat staat gelijk aan: " << leeftijd_maanden << " maanden.\n";
-    
-    
-    
+    cout << "Dat staat gelijk aan: " << leeftijd_maanden << " maanden.\n\n";
+
+    cout << "Om te kijken of je geschikt bent voor een beta studie krijg je Daarom een wiskunde vraag.\n";
     
     
     
@@ -250,17 +263,18 @@ int main(){
     
     
     a=rand()%1000000+1, b=(rand()%1000000+(-500000)), c=-(rand()%1000000+(-500000));
-    /*  Het genereren van random nummers voor de a,b en c plaatsen in de ax^2+bx+c=0 formule
-        Waarbij de a waarde boven de 1 is en de b en c waarde ook negatief en 0 kunnen zijn
-    */
+    // Het genereren van random nummers voor de a,b en c plaatsen in de ax^2+bx+c=0 formule
+    // Waarbij de a waarde boven de 1 is en de b en c waarde ook negatief en 0 kunnen zijn
+    
     cout << a << "x^2+" << b << "x+" << c << "=0" << endl;
-    /* Dit print de net gegenereerde formule met xen erin */
-
+    // Dit print de net gegenereerde formule met xen erin
 
     d=  ((b*b)-(4*a*c));
     x1= (-b+sqrt(d))/(2*a);
     x2= (-b-sqrt(d))/(2*a);
-    // ABC formule uitrekenen met + en -
+
+    // Na het uitrekenen wordt er gekeken of     
+    
     if (d==0){
         goed_antwoord=1;
     }
@@ -294,12 +308,13 @@ int main(){
     }
     
     char mc_antwoord,mc_antwoord_persoon;
-
+    
+    // Vragen voor de mensen die niet toegelaten worden op een beta studie
 
     cout << "Daarom nu een vraag over literatuur om te kijken of een alpha studie beter is.\n";
     if (leeftijd_jaar<30){
         cout << "Op wie wordt Romeo verliefd?\n"
-        "a. Sjaakie\n"
+        "a. Katarina\n"
         "b. Julia\n"
         "c. Geraldina\n"
         "d. Annemieke\n";
@@ -333,7 +348,6 @@ int main(){
             cout << "Helaas U bent niet geschikt voor een universitaire studie";
         return 1;
         }
-        
     }
 }
 
